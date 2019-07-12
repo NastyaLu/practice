@@ -14,17 +14,13 @@ system("chcp 1251");
 system("cls");
 HKEY Key;
 HKEY fkey;
-DWORD subData=255;
 DWORD txData=255;
 DWORD divData=255;
-DWORD regtype=0;
-char* sData = new char [subData];
-char* substr = new char [50];
 char* tData = new char [txData];
 char* key = new char [50];
 char* dData = new char [divData];
 char* divis = new char [50];
-
+string substr;
 
 
 cout<<"Введите дескриптор ключа "<<endl;
@@ -34,9 +30,12 @@ cout<<"Введите раздел "<<endl;
 cin>>divis;
 if(RegOpenKeyEx(key,divis,0,KEY_QUERY_VALUE+KEY_EXECUTE,&fkey)==ERROR_SUCCESS) //открываем раздел
 { if (RegQueryValueEx(fkey,REG_SZ,NULL, NULL, (LPBYTE)dData,&divData)==ERROR_SUCCESS)// ищем параметр REG_SZ
-   сout<<"Введите подстроку: "<<endl;
+   cout<<"Введите подстроку: "<<endl;
     cin>>substr;
-    else
+     int num=KEY_EXECUTE.find(substr);
+     {if (num!=0)
+     cout<<KEY_EXECUTE<<endl;
+     else cout<<"Заданных значений нет"<<endl; }
     cout<<"Нет данного параметра"<<endl;
     RegCloseKey(fkey);
     }
